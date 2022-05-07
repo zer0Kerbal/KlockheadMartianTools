@@ -1,0 +1,36 @@
+{
+	"NAME"		     : "Klockheed Martian Utilities (KM/U)",
+	"URL"			 : "https://raw.githubusercontent.com/zer0Kerbal/KlockheedMartianUtilities/master/KlockheedMartianUtilities.version",
+	"DOWNLOAD"	     : "https://github.com/zer0Kerbal/KlockheedMartianUtilities/releases/latest",
+	"CHANGE_LOG_URL" : "https://raw.githubusercontent.com/zer0Kerbal/KlockheedMartianUtilities/master/changelog.md",
+	"GITHUB" :
+	{
+		"USERNAME"	        : "zer0Kerbal",
+		"REPOSITORY"		: "KlockheedMartianUtilities",
+		"ALLOW_PRE_RELEASE" : false
+	},
+	"VERSION" :
+	{
+		"MAJOR" : 1,
+		"MINOR" : 0,
+		"PATCH" : 0,
+		"BUILD" : 0
+	},
+	"KSP_VERSION" :
+	{
+		"MAJOR" : 1,
+		"MINOR" : 12,
+		"PATCH" : 3
+	},
+	"KSP_VERSION_MIN" :
+	{
+		"MAJOR" : 1,
+		"MINOR" : 3,
+		"PATCH" : 1
+	},
+	"INSTALL_LOC" :
+	{
+		"NAME" :	  "KlockheedMartianUtilities",
+		"DIRECTORY" : "KlockheedMartian/KlockheedMartianUtilities"
+	}
+}
