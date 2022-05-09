@@ -27,7 +27,9 @@ using UnityEngine;
 namespace KlockheedMartianTools
 {
 
-
+    /// <summary>
+    /// Utility
+    /// </summary>
     public static class Utility
     {    
 
