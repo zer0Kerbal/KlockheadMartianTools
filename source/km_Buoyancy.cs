@@ -9,18 +9,14 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
-using KSP.IO;
-using KSP;
 
 namespace KlockheedMartianTools
 {
 
 	/* Code borrowed from the firespitter pack. All credits for the buoyancy model go to:
 	 * Firespitter Plane parts and Helicopter Rotors by Snjo. agogstad@gmail.com
+     * https://raw.githubusercontent.com/snjo/Firespitter/master/Firespitter/water/FSbuoyancy.cs
      * 
      * 
 	 */
@@ -28,30 +24,47 @@ namespace KlockheedMartianTools
     {
 
         [KSPField(isPersistant = true, guiActive = true, guiActiveEditor = false, guiName = "Force")]
-        public float buoyancyForce = 12f; // the force applied to lift the part, scaled by depth according to buoyancyRange
+        
+        /// the force applied to lift the part, scaled by depth according to buoyancyRange
+        public float buoyancyForce = 12f; 
         [KSPField]
-        public float buoyancyRange = 1f; // the max depth at which the buoyancy will be scaled up. at this depth, the force applied is equal to buiyoancyForce. At 0 depth, the force is 0
+        
+        /// the max depth at which the buoyancy will be scaled up. at this depth, the force applied is equal to buiyoancyForce. At 0 depth, the force is 0
+        public float buoyancyRange = 1f;
         [KSPField]
-        public float buoyancyVerticalOffset = 0.05f; // how high the part rides on the water in meters. Not a position offset inside the part. This will be applied in the global axis regardless of part rotation. Think iceberg/styrofoam.
+        
+        /// how high the part rides on the water in meters. Not a position offset inside the part. This will be applied in the global axis regardless of part rotation. Think iceberg/styrofoam.
+        public float buoyancyVerticalOffset = 0.1f; // 0.05f;
         [KSPField]
-        public float maxVerticalSpeed = 0.2f; // the max speed vertical speed at which there will be a lifitng force applied. Reduces bobbing.
+        
+        /// the max speed vertical speed at which there will be a lifitng force applied. Reduces bobbing.
+        public float maxVerticalSpeed = 0.2f;
         [KSPField]
-        public float dragInWater = 1.5f; // when in water, apply drag to slow the craft down. Stock drag is 3.
+        
+        /// when in water, apply drag to slow the craft down. Stock drag is 3.
+        public float dragInWater = 1.5f;
+        
         [KSPField]
-        public bool debugMode = false;
+        public bool debugMode = true; // false;
+        
         [KSPField]
         public float waterImpactTolerance = 125f;
+        
+        /// if defined, this is the point that's checked for height, and where the force is applied. allows for several modules on one part through use of many named forecePoints. If undefined, uses part.transform
         [KSPField]
-        public string forcePointName; // if defined, this is the point that's checked for height, and where the force is applied. allows for several modules on one part through use of many named forecePoints. If undefined, uses part.transform
+        public string forcePointName;
+        
         [KSPField]
         public bool splashFXEnabled = true;
+        
         [KSPField]
         public string sound_inflate = "";
+        
         [KSPField]
         public string sound_deflate = "";
 
-
-        [KSPField(isPersistant = true, guiName = "Inflated")] // remember if the part is inflated
+        /// remember if the part is inflated
+        [KSPField(isPersistant = true, guiName = "Inflated")]
         public bool isInflated = false;
 
         [KSPField(isPersistant = true, guiActive = false, guiActiveEditor = false, guiName = "ForceInflated")]
@@ -66,7 +79,10 @@ namespace KlockheedMartianTools
 
 
         public Transform forcePoint;
-        public float buoyancyIncrements = 1f; // using the events, increase or decrease buoyancyForce by this amount
+        
+        /// using the events, increase or decrease buoyancyForce by this amount
+        public float buoyancyIncrements = 1f;
+        
         //private float defaultMinDrag;
         //private float defaultMaxDrag;
         public bool splashed;
@@ -203,7 +219,7 @@ namespace KlockheedMartianTools
                 toggleInflate ();
             }
             print ("DB42\n");
-            if (vessel.mainBody.ocean && part.rigidbody != null)
+            if (vessel.mainBody.ocean && part.Rigidbody != null)
             {
                 if (part.partBuoyancy != null)
                 {
@@ -227,13 +243,13 @@ namespace KlockheedMartianTools
 
                         if (vessel.verticalSpeed < maxVerticalSpeed) // || relativeDirection < 0f) // if you are going down, apply force regardless, of going up, limit up speed
                         {
-                            this.part.rigidbody.AddForceAtPosition(uplift, forcePoint.position);
+                            this.part.Rigidbody.AddForceAtPosition(uplift, forcePoint.position);
                         }
                     }
 
                     // set water drag
 
-                    part.rigidbody.drag = dragInWater;
+                    part.Rigidbody.drag = dragInWater;
 
                     // splashed status
 
@@ -276,7 +292,7 @@ namespace KlockheedMartianTools
                         splashed = false;
 
                         // set air drag
-                        part.rigidbody.drag = 0f;
+                        part.Rigidbody.drag = 0f;
 
                         part.WaterContact = false;
                         part.vessel.checkSplashed();
